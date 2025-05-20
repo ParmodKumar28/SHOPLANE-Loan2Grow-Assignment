@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
+import SignupPage from './pages/SignupPage';
+import LoginPage from './pages/LoginPage';
+import ForgotPasswordPage from './pages/ForgotPassword';
+import ProtectedRoute from './components/ProtectedRoute';
+import ProductsPage from './pages/ProductPage';
+import CartPage from './pages/CartPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<Navigate to="/signup" replace />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route 
+          path="/products" 
+          element={
+            <ProtectedRoute>
+              <ProductsPage />
+            </ProtectedRoute>
+          } 
+        />
+         <Route path="/cart" element={<CartPage />} />
+      </Routes>
     </div>
   );
 }
